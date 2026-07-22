@@ -1,0 +1,52 @@
+paths:
+  model_dir: weights
+  model_path: weights/fall_lstm2.pth
+  alert_video_dir: alert_videos
+
+dataset:
+  seq_len: 30
+  num_keypoints: 33
+  features: 3
+  step: 5
+
+model:
+  hidden_size: 128
+  num_layers: 2
+  dropout: 0.3
+
+training:
+  batch_size: 32
+  epochs: 50
+  learning_rate: 0.001
+
+inference:
+  video_path: "test.mp4"
+  camera_index: 0
+  confidence_threshold: 0.75
+  motion_threshold: 0.015
+  no_motion_seconds: 5
+  required_fall_frames: 3 #fall결과 연속시 경고
+  no_pose_reset_seconds: 2 #사람 검출 없을떄 시퀀스 초기화 시간
+  frame_width: 640  #서버영상크기
+  frame_height: 480
+  jpeg_quality: 75 #송출품질
+
+labels:
+  normal: 0
+  sitting: 1
+  lying: 2
+  fall: 3
+
+recording:
+  enable: true
+  fps: 20
+  pre_record_seconds: 5
+  post_record_seconds: 10
+
+discord:
+  enable: true
+  webhook_url: "https://discord.com/api/webhooks/1513867103516495942/vzsOOQQtr5FYP9w1k2lozbSX8AMvm-95pt1eEQELOr4Xz8U5hzyYKB7u8GXC64LceBAO"
+
+server:
+  host: "0.0.0.0"
+  port: 5001
