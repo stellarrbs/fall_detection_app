@@ -22,14 +22,37 @@ training:
 inference:
   video_path: "test.mp4"
   camera_index: 0
+
+  # LSTM의 넘어짐 예측 신뢰도 기준
   confidence_threshold: 0.75
+
+  # 넘어짐 이후 움직임 감소 판단 기준
   motion_threshold: 0.015
+
+  # 넘어짐 후보 상태가 유지되어야 하는 시간
   no_motion_seconds: 5
-  required_fall_frames: 3 #fall결과 연속시 경고
-  no_pose_reset_seconds: 2 #사람 검출 없을떄 시퀀스 초기화 시간
-  frame_width: 640  #서버영상크기
+
+  # 넘어짐 예측 결과가 연속으로 나타나야 하는 프레임 수
+  required_fall_frames: 3
+
+  # 사람이 검출되지 않을 때 시퀀스를 초기화하기까지의 시간
+  no_pose_reset_seconds: 2
+
+  # 서버 영상 크기 및 송출 품질
+  frame_width: 640
   frame_height: 480
-  jpeg_quality: 75 #송출품질
+  jpeg_quality: 75
+
+  # 골반 중심의 수직 이동 속도 기준
+  # 영상 좌표 기준이며, 양수는 화면 아래 방향 이동
+  velocity_threshold: 0.8
+
+  # 골반 중심의 수직 가속도 기준
+  # 실제 m/s²가 아닌 영상 좌표 기반 상대값
+  acceleration_threshold: 8.0
+
+  # 속도 또는 가속도 기준을 넘은 상황을 기억하는 시간
+  kinematic_memory_seconds: 1.0
 
 labels:
   normal: 0
@@ -45,7 +68,9 @@ recording:
 
 discord:
   enable: true
-  webhook_url: "https://discord.com/api/webhooks/1513867103516495942/vzsOOQQtr5FYP9w1k2lozbSX8AMvm-95pt1eEQELOr4Xz8U5hzyYKB7u8GXC64LceBAO"
+
+  # 본인의 Discord Webhook URL 입력
+  webhook_url: "YOUR_DISCORD_WEBHOOK_URL"
 
 server:
   host: "0.0.0.0"
